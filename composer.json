@@ -1,0 +1,71 @@
+{
+    "name": "tiny-blocks/ksuid",
+    "type": "library",
+    "license": "MIT",
+    "homepage": "https://github.com/tiny-blocks/ksuid",
+    "description": "K-Sortable Unique Identifier for PHP.",
+    "prefer-stable": true,
+    "minimum-stability": "stable",
+    "keywords": [
+        "psr",
+        "psr-4",
+        "ksuid",
+        "psr-12",
+        "base62",
+        "unique",
+        "identifier",
+        "tiny-blocks"
+    ],
+    "authors": [
+        {
+            "name": "Gustavo Freze de Araujo Santos",
+            "homepage": "https://github.com/gustavofreze"
+        }
+    ],
+    "config": {
+        "sort-packages": true,
+        "allow-plugins": {
+            "infection/extension-installer": true
+        }
+    },
+    "autoload": {
+        "psr-4": {
+            "TinyBlocks\\Ksuid\\": "src/"
+        }
+    },
+    "autoload-dev": {
+        "psr-4": {
+            "TinyBlocks\\Ksuid\\": "tests/"
+        }
+    },
+    "require": {
+        "php": "^8.2",
+        "tiny-blocks/encoder": "^1"
+    },
+    "require-dev": {
+        "infection/infection": "^0.26",
+        "phpmd/phpmd": "^2.12",
+        "phpunit/phpunit": "^9.5",
+        "squizlabs/php_codesniffer": "^3.7"
+    },
+    "scripts": {
+        "phpcs": "phpcs --standard=PSR12 --extensions=php ./src",
+        "phpmd": "phpmd ./src text phpmd.xml --suffixes php --ignore-violations-on-exit",
+        "test": "phpunit --log-junit=report/coverage/junit.xml --coverage-xml=report/coverage/coverage-xml --coverage-html=report/coverage/coverage-html tests",
+        "test-mutation": "infection --only-covered --logger-html=report/coverage/mutation-report.html --coverage=report/coverage --min-msi=100 --min-covered-msi=100 --threads=4",
+        "test-no-coverage": "phpunit --no-coverage",
+        "test-mutation-no-coverage": "infection --only-covered --min-msi=100 --threads=4",
+        "review": [
+            "@phpcs",
+            "@phpmd"
+        ],
+        "tests": [
+            "@test",
+            "@test-mutation"
+        ],
+        "tests-no-coverage": [
+            "@test-no-coverage",
+            "@test-mutation-no-coverage"
+        ]
+    }
+}
