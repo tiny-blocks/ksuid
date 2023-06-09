@@ -29,26 +29,44 @@ composer require tiny-blocks/ksuid
 
 The library exposes a concrete implementation through the `Ksuid` class.
 
+### Creating a Ksuid
+
 With the `random` method, a new instance of type `Ksuid` is created from a timestamp (_current unix timestamp - EPOCH_)
 and a payload (_cryptographically secure pseudo-random bytes_).
 
 ```php
 $ksuid = Ksuid::random();
 
-echo $ksuid->getValue();     # 2QvY47aUlV3cSyYcpo53FQxgSFg
-echo $ksuid->getPayload();   # bdf0a2329620aa70cebe4026ca9ff49c
-echo $ksuid->getTimestamp(); # 286235327
+echo $ksuid->getValue();     # 2QzPUGEaAKHhVcQYrqQodbiZat1
+echo $ksuid->getPayload();   # 464932c1194da98e752145d72b8f0aab
+echo $ksuid->getUnixTime();  # 1686353450
+echo $ksuid->getTimestamp(); # 286353450
 ```
 
 You can also choose from other factory models.
 
 ```php
 
-Ksuid::from(payload: hex2bin("9850EEEC191BF4FF26F99315CE43B0C8"), timestamp: 286235327);
+Ksuid::from(payload: hex2bin('9850EEEC191BF4FF26F99315CE43B0C8'), timestamp: 286235327);
 
 Ksuid::fromPayload(value: '0o5Fs0EELR0fUjHjbCnEtdUwQe3');
 
 Ksuid::fromTimestamp(value: 286235327);
+```
+
+### Inspecting a Ksuid
+
+You can inspect the components used to create a `Ksuid`, using the `inspectFrom` method.
+
+```php
+$ksuid = Ksuid::inspectFrom(ksuid: '2QzPUGEaAKHhVcQYrqQodbiZat1');
+
+print_r($ksuid); # Array
+                 # (
+                 #    [time] => 2023-06-09 23:30:50 +0000 GMT+0000
+                 #    [payload] => 464932c1194da98e752145d72b8f0aab
+                 #    [timestamp] => 286353450
+                 # )
 ```
 
 ## License

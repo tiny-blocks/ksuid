@@ -21,7 +21,8 @@
         "UnwrapSubstr": false,
         "UnwrapStrRepeat": false,
         "IncrementInteger": false,
-        "DecrementInteger": false
+        "DecrementInteger": false,
+        "PublicVisibility": false
     },
     "phpUnit": {
         "configDir": "",
