@@ -3,6 +3,7 @@
 namespace TinyBlocks\Ksuid;
 
 use TinyBlocks\Encoder\Base62;
+use TinyBlocks\Ksuid\Internal\Exceptions\InvalidKsuidForInspection;
 use TinyBlocks\Ksuid\Internal\Payload;
 use TinyBlocks\Ksuid\Internal\Timestamp;
 
@@ -34,6 +35,21 @@ final class Ksuid
         return new Ksuid(payload: Payload::random(), timestamp: Timestamp::from(value: $value));
     }
 
+    public static function inspectFrom(string $ksuid): array
+    {
+        if (strlen($ksuid) !== self::ENCODED_SIZE) {
+            throw new InvalidKsuidForInspection(ksuid: $ksuid);
+        }
+
+        $ksuid = self::fromPayload(value: $ksuid);
+
+        return [
+            'time'      => Timestamp::format(timestamp: $ksuid->getUnixTime()),
+            'payload'   => $ksuid->getPayload(),
+            'timestamp' => $ksuid->getTimestamp()
+        ];
+    }
+
     public function getValue(): string
     {
         $encoded = Base62::encode(value: $this->getBytes());
@@ -54,6 +70,11 @@ final class Ksuid
     public function getPayload(): string
     {
         return bin2hex($this->payload->getValue());
+    }
+
+    public function getUnixTime(): int
+    {
+        return $this->timestamp->getUnixTime();
     }
 
     public function getTimestamp(): int
