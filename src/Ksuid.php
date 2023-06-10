@@ -44,7 +44,7 @@ final class Ksuid
         $ksuid = self::fromPayload(value: $ksuid);
 
         return [
-            'time'      => Timestamp::format(timestamp: $ksuid->getUnixTime()),
+            'time'      => $ksuid->timestamp->toUnixTimeFormatted(),
             'payload'   => $ksuid->getPayload(),
             'timestamp' => $ksuid->getTimestamp()
         ];

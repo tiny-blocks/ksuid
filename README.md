@@ -63,7 +63,7 @@ $ksuid = Ksuid::inspectFrom(ksuid: '2QzPUGEaAKHhVcQYrqQodbiZat1');
 
 print_r($ksuid); # Array
                  # (
-                 #    [time] => 2023-06-09 23:30:50 +0000 GMT+0000
+                 #    [time] => 2023-06-09 20:30:50 -0300 -03
                  #    [payload] => 464932c1194da98e752145d72b8f0aab
                  #    [timestamp] => 286353450
                  # )
