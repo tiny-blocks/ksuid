@@ -5,6 +5,7 @@ namespace TinyBlocks\Ksuid;
 use Exception;
 use PHPUnit\Framework\TestCase;
 use TinyBlocks\Ksuid\Internal\Exceptions\InvalidKsuidForInspection;
+use TinyBlocks\Ksuid\Internal\Timestamp;
 
 class KsuidTest extends TestCase
 {
@@ -39,6 +40,7 @@ class KsuidTest extends TestCase
 
         /** @Then a KSUID must be generated */
         self::assertEquals($value, $ksuid->getTimestamp());
+        self::assertEquals($value + Timestamp::EPOCH, $ksuid->getUnixTime());
         self::assertEquals(20, strlen($ksuid->getBytes()));
         self::assertEquals(Ksuid::ENCODED_SIZE, strlen($ksuid->getValue()));
     }
@@ -94,7 +96,7 @@ class KsuidTest extends TestCase
             [
                 'ksuid'    => '2QzPUGEaAKHhVcQYrqQodbiZat1',
                 'expected' => [
-                    'time'      => '2023-06-09 23:30:50 +0000 GMT+0000',
+                    'time'      => '2023-06-09 20:30:50 -0300 -03',
                     'payload'   => '464932c1194da98e752145d72b8f0aab',
                     'timestamp' => 286353450
                 ]
@@ -102,7 +104,7 @@ class KsuidTest extends TestCase
             [
                 'ksuid'    => '0ujzPyRiIAffKhBux4PvQdDqMHY',
                 'expected' => [
-                    'time'      => '2017-10-10 04:46:20 +0000 GMT+0000',
+                    'time'      => '2017-10-10 01:46:20 -0300 -03',
                     'payload'   => '73fc1aa3b2446246d6e89fcd909e8fe8',
                     'timestamp' => 107610780
                 ]

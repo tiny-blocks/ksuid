@@ -3,22 +3,20 @@
 namespace TinyBlocks\Ksuid\Internal;
 
 use DateTime;
+use DateTimeZone;
 use TinyBlocks\Encoder\Base62;
 
 final class Timestamp
 {
     public const EPOCH = 1400000000;
 
-    private readonly int $time;
-
-    private function __construct(private readonly int $value, private readonly int $epoch)
+    private function __construct(private readonly int $value)
     {
-        $this->time = $this->value - $this->epoch;
     }
 
     public static function from(int $value): Timestamp
     {
-        return new Timestamp(value: $value, epoch: 0);
+        return new Timestamp(value: $value);
     }
 
     public static function fromBytes(string $value): Timestamp
@@ -26,28 +24,33 @@ final class Timestamp
         $bytes = Base62::decode(value: $value);
         $timestamp = substr($bytes, 0, -16);
         $timestamp = substr($timestamp, -4);
-        $timestamp = (array)unpack("Nuint", $timestamp);
+        $timestamp = (array)unpack('Nuint', $timestamp);
 
-        return new Timestamp(value: $timestamp["uint"], epoch: 0);
+        return new Timestamp(value: $timestamp['uint']);
     }
 
     public static function fromAdjustedCurrentTime(): Timestamp
     {
-        return new Timestamp(value: time(), epoch: self::EPOCH);
-    }
-
-    public static function format(int $timestamp): string
-    {
-        return (new DateTime("@$timestamp"))->format('Y-m-d H:i:s O T');
+        return new Timestamp(value: time() - self::EPOCH);
     }
 
     public function getValue(): int
     {
-        return $this->time;
+        return $this->value;
     }
 
     public function getUnixTime(): int
     {
-        return $this->time + self::EPOCH;
+        return $this->value + self::EPOCH;
+    }
+
+    public function toUnixTimeFormatted(): string
+    {
+        $timezone = new DateTimeZone(timezone: date_default_timezone_get());
+
+        return (new DateTime())
+            ->setTimezone(timezone: $timezone)
+            ->setTimestamp(timestamp: $this->getUnixTime())
+            ->format(format: 'Y-m-d H:i:s O T');
     }
 }
