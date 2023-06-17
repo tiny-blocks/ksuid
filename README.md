@@ -37,10 +37,10 @@ and a payload (_cryptographically secure pseudo-random bytes_).
 ```php
 $ksuid = Ksuid::random();
 
-echo $ksuid->getValue();     # 2QzPUGEaAKHhVcQYrqQodbiZat1
-echo $ksuid->getPayload();   # 464932c1194da98e752145d72b8f0aab
-echo $ksuid->getUnixTime();  # 1686353450
-echo $ksuid->getTimestamp(); # 286353450
+$ksuid->getValue();     # 2QzPUGEaAKHhVcQYrqQodbiZat1
+$ksuid->getPayload();   # 464932c1194da98e752145d72b8f0aab
+$ksuid->getUnixTime();  # 1686353450
+$ksuid->getTimestamp(); # 286353450
 ```
 
 You can also choose from other factory models.
@@ -59,19 +59,19 @@ Ksuid::fromTimestamp(value: 286235327);
 You can inspect the components used to create a `Ksuid`, using the `inspectFrom` method.
 
 ```php
-$ksuid = Ksuid::inspectFrom(ksuid: '2QzPUGEaAKHhVcQYrqQodbiZat1');
-
-print_r($ksuid); # Array
-                 # (
-                 #    [time] => 2023-06-09 20:30:50 -0300 -03
-                 #    [payload] => 464932c1194da98e752145d72b8f0aab
-                 #    [timestamp] => 286353450
-                 # )
+$ksuid = Ksuid::inspectFrom(ksuid: '2QzPUGEaAKHhVcQYrqQodbiZat1'); # Array
+                                                                   # (
+                                                                   #    [time] => 2023-06-09 20:30:50 -0300 -03
+                                                                   #    [payload] => 464932c1194da98e752145d72b8f0aab
+                                                                   #    [timestamp] => 286353450
+                                                                   # )
 ```
+
+<div id='license'></div>
 
 ## License
 
-Math is licensed under [MIT](/LICENSE).
+Ksuid is licensed under [MIT](LICENSE).
 
 <div id='contributing'></div>
 
