@@ -67,11 +67,16 @@ class KsuidTest extends TestCase
     /**
      * @dataProvider providerForTestInspectFrom
      */
-    public function testInspectFrom(string $ksuid, array $expected): void
+    public function testInspectFrom(string $ksuid, string $timezone, array $expected): void
     {
+        $default = date_default_timezone_get();
+        date_default_timezone_set($timezone);
+
         $actual = Ksuid::inspectFrom(ksuid: $ksuid);
 
         self::assertEquals($expected, $actual);
+
+        date_default_timezone_set($default);
     }
 
     /**
@@ -95,6 +100,7 @@ class KsuidTest extends TestCase
         return [
             [
                 'ksuid'    => '2QzPUGEaAKHhVcQYrqQodbiZat1',
+                'timezone' => 'America/Sao_Paulo',
                 'expected' => [
                     'time'      => '2023-06-09 20:30:50 -0300 -03',
                     'payload'   => '464932c1194da98e752145d72b8f0aab',
@@ -103,6 +109,7 @@ class KsuidTest extends TestCase
             ],
             [
                 'ksuid'    => '0ujzPyRiIAffKhBux4PvQdDqMHY',
+                'timezone' => 'America/Sao_Paulo',
                 'expected' => [
                     'time'      => '2017-10-10 01:46:20 -0300 -03',
                     'payload'   => '73fc1aa3b2446246d6e89fcd909e8fe8',
