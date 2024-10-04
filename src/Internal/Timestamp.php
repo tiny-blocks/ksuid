@@ -1,16 +1,18 @@
 <?php
 
+declare(strict_types=1);
+
 namespace TinyBlocks\Ksuid\Internal;
 
 use DateTime;
 use DateTimeZone;
 use TinyBlocks\Encoder\Base62;
 
-final class Timestamp
+final readonly class Timestamp
 {
     public const EPOCH = 1400000000;
 
-    private function __construct(private readonly int $value)
+    private function __construct(private int $value)
     {
     }
 
@@ -21,7 +23,8 @@ final class Timestamp
 
     public static function fromBytes(string $value): Timestamp
     {
-        $bytes = Base62::decode(value: $value);
+        $decoder = Base62::from(value: $value);
+        $bytes = $decoder->decode();
         $timestamp = substr($bytes, 0, -16);
         $timestamp = substr($timestamp, -4);
         $timestamp = (array)unpack('Nuint', $timestamp);

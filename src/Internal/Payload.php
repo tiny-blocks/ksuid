@@ -1,15 +1,17 @@
 <?php
 
+declare(strict_types=1);
+
 namespace TinyBlocks\Ksuid\Internal;
 
 use TinyBlocks\Encoder\Base62;
 use TinyBlocks\Ksuid\Internal\Exceptions\InvalidPayloadSize;
 
-final class Payload
+final readonly class Payload
 {
     public const PAYLOAD_BYTES = 16;
 
-    private function __construct(private readonly string $value)
+    private function __construct(private string $value)
     {
         $currentSize = strlen($value);
 
@@ -30,7 +32,8 @@ final class Payload
 
     public static function fromBytes(string $value): Payload
     {
-        $bytes = Base62::decode(value: $value);
+        $decoder = Base62::from(value: $value);
+        $bytes = $decoder->decode();
         $payload = substr($bytes, -self::PAYLOAD_BYTES);
 
         return new Payload(value: $payload);
