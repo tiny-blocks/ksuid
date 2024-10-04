@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace TinyBlocks\Ksuid;
 
 use TinyBlocks\Encoder\Base62;
@@ -7,11 +9,11 @@ use TinyBlocks\Ksuid\Internal\Exceptions\InvalidKsuidForInspection;
 use TinyBlocks\Ksuid\Internal\Payload;
 use TinyBlocks\Ksuid\Internal\Timestamp;
 
-final class Ksuid
+final readonly class Ksuid
 {
     public const ENCODED_SIZE = 27;
 
-    private function __construct(private readonly Payload $payload, private readonly Timestamp $timestamp)
+    private function __construct(private Payload $payload, private Timestamp $timestamp)
     {
     }
 
@@ -52,19 +54,15 @@ final class Ksuid
 
     public function getValue(): string
     {
-        $encoded = Base62::encode(value: $this->getBytes());
-        $padding = self::ENCODED_SIZE - strlen($encoded);
+        $encoder = Base62::from(value: $this->getBytes());
+        $encoded = $encoder->encode();
 
-        if ($padding > 0) {
-            $encoded = str_repeat('0', $padding) . $encoded;
-        }
-
-        return $encoded;
+        return str_pad($encoded, self::ENCODED_SIZE, '0', STR_PAD_LEFT);
     }
 
     public function getBytes(): string
     {
-        return pack('N', $this->timestamp->getValue()) . $this->payload->getValue();
+        return sprintf('%s%s', pack('N', $this->timestamp->getValue()), $this->payload->getValue());
     }
 
     public function getPayload(): string

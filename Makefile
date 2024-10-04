@@ -1,14 +1,17 @@
 DOCKER_RUN = docker run --rm -it --net=host -v ${PWD}:/app -w /app gustavofreze/php:8.2
 
-.PHONY: configure test test-no-coverage review show-reports clean
+.PHONY: configure test test-file test-no-coverage review show-reports clean
 
 configure:
 	@${DOCKER_RUN} composer update --optimize-autoloader
 
-test: review
+test:
 	@${DOCKER_RUN} composer tests
 
-test-no-coverage: review
+test-file:
+	@${DOCKER_RUN} composer tests-file-no-coverage ${FILE}
+
+test-no-coverage:
 	@${DOCKER_RUN} composer tests-no-coverage
 
 review:
@@ -19,4 +22,4 @@ show-reports:
 
 clean:
 	@sudo chown -R ${USER}:${USER} ${PWD}
-	@rm -rf report vendor
+	@rm -rf report vendor .phpunit.cache

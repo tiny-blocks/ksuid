@@ -1,0 +1,14 @@
+/tests export-ignore
+/vendor export-ignore
+
+/LICENSE export-ignore
+/Makefile export-ignore
+/README.md export-ignore
+/phpmd.xml export-ignore
+/phpunit.xml export-ignore
+/phpstan.neon.dist export-ignore
+/infection.json.dist export-ignore
+
+/.github export-ignore
+/.gitignore export-ignore
+/.gitattributes export-ignore
