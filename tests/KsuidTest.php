@@ -7,6 +7,7 @@ namespace TinyBlocks\Ksuid;
 use PHPUnit\Framework\Attributes\DataProvider;
 use PHPUnit\Framework\TestCase;
 use TinyBlocks\Ksuid\Internal\Exceptions\InvalidKsuidForInspection;
+use TinyBlocks\Ksuid\Internal\Exceptions\InvalidPayloadException; // Assuming this exception exists
 use TinyBlocks\Ksuid\Internal\Timestamp;
 
 final class KsuidTest extends TestCase
@@ -130,5 +131,76 @@ final class KsuidTest extends TestCase
                 ]
             ]
         ];
+    }
+
+    // Additional test cases added below
+
+    public function testFromInvalidPayload(): void
+    {
+        /** @Then an InvalidPayloadException should be thrown for an empty payload */
+        $this->expectException(InvalidPayloadException::class);
+        Ksuid::from('', time()); // Assuming an empty payload is invalid.
+    }
+
+    public function testFromFutureTimestamp(): void
+    {
+        /** @Given a future Unix timestamp */
+        $futureTimestamp = time() + 1000000; // Future timestamp
+
+        /** @When I generate a KSUID from the future timestamp */
+        $ksuid = Ksuid::fromPayload(Payload::random()->getValue(), $futureTimestamp);
+
+        /** @Then the KSUID should have the future timestamp */
+        self::assertEquals($futureTimestamp, $ksuid->getTimestamp());
+    }
+
+    public function testGetValueConsistency(): void
+    {
+        /** @Given a random KSUID */
+        $ksuid = Ksuid::random();
+
+        /** @When I retrieve the value multiple times */
+        $value = $ksuid->getValue();
+
+        /** @Then the value should remain consistent */
+        self::assertEquals($value, $ksuid->getValue());
+    }
+
+    public function testGetPayloadHexConversion(): void
+    {
+        /** @Given a specific payload */
+        $payloadValue = 'example_payload'; // Use an actual payload value
+        $ksuid = Ksuid::from($payloadValue, time());
+
+        /** @Then the payload should match the hex conversion */
+        self::assertEquals(bin2hex($payloadValue), $ksuid->getPayload());
+    }
+
+    public function testGetUnixTime(): void
+    {
+        /** @Given a Unix timestamp */
+        $currentTimestamp = time();
+        $ksuid = Ksuid::from(Payload::random()->getValue(), $currentTimestamp);
+
+        /** @Then the Unix time should match the timestamp */
+        self::assertEquals($currentTimestamp, $ksuid->getUnixTime());
+    }
+
+    public function testInspectFromInvalidLength(): void
+    {
+        /** @Given a KSUID with an invalid length */
+        $this->expectException(InvalidKsuidForInspection::class);
+        Ksuid::inspectFrom('short'); // Shorter than ENCODED_SIZE
+    }
+
+    public function testFromTimestampValidPayload(): void
+    {
+        /** @Given a Unix timestamp */
+        $currentTimestamp = time();
+        $ksuid = Ksuid::fromTimestamp($currentTimestamp);
+
+        /** @Then the KSUID should have a random payload */
+        self::assertNotEmpty($ksuid->getPayload());
+        self::assertEquals($currentTimestamp, $ksuid->getTimestamp());
     }
 }
