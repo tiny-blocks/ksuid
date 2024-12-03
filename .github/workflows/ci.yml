@@ -7,6 +7,9 @@ on:
 permissions:
   contents: read
 
+env:
+  PHP_VERSION: '8.3'
+
 jobs:
   auto-review:
     name: Auto review
@@ -14,21 +17,18 @@ jobs:
 
     steps:
       - name: Checkout
-        uses: actions/checkout@v3
+        uses: actions/checkout@v4
 
-      - name: Use PHP 8.2
+      - name: Configure PHP
         uses: shivammathur/setup-php@v2
         with:
-          php-version: '8.2'
+          php-version: ${{ env.PHP_VERSION }}
 
       - name: Install dependencies
         run: composer update --no-progress --optimize-autoloader
 
-      - name: Run phpcs
-        run: composer phpcs
-
-      - name: Run phpmd
-        run: composer phpmd
+      - name: Run review
+        run: composer review
 
   tests:
     name: Tests
@@ -36,20 +36,15 @@ jobs:
 
     steps:
       - name: Checkout
-        uses: actions/checkout@v3
+        uses: actions/checkout@v4
 
-      - name: Use PHP 8.2
+      - name: Use PHP ${{ env.PHP_VERSION }}
         uses: shivammathur/setup-php@v2
         with:
-          php-version: '8.2'
+          php-version: ${{ env.PHP_VERSION }}
 
       - name: Install dependencies
         run: composer update --no-progress --optimize-autoloader
 
-      - name: Run unit tests
-        env:
-          XDEBUG_MODE: coverage
-        run: composer test
-
-      - name: Run mutation tests
-        run: composer test-mutation
+      - name: Run tests
+        run: composer tests

@@ -1,4 +1,4 @@
-DOCKER_RUN = docker run --rm -it --net=host -v ${PWD}:/app -w /app gustavofreze/php:8.2
+DOCKER_RUN = docker run --rm -it --net=host -v ${PWD}:/app -w /app gustavofreze/php:8.3
 
 .PHONY: configure test test-file test-no-coverage review show-reports clean
 
