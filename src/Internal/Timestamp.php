@@ -10,7 +10,7 @@ use TinyBlocks\Encoder\Base62;
 
 final readonly class Timestamp
 {
-    public const EPOCH = 1400000000;
+    public const int EPOCH = 1400000000;
 
     private function __construct(private int $value)
     {
