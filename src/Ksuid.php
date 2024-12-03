@@ -11,7 +11,7 @@ use TinyBlocks\Ksuid\Internal\Timestamp;
 
 final readonly class Ksuid
 {
-    public const ENCODED_SIZE = 27;
+    public const int ENCODED_SIZE = 27;
 
     private function __construct(private Payload $payload, private Timestamp $timestamp)
     {

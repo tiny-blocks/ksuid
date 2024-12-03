@@ -9,7 +9,7 @@ use TinyBlocks\Ksuid\Internal\Exceptions\InvalidPayloadSize;
 
 final readonly class Payload
 {
-    public const PAYLOAD_BYTES = 16;
+    public const int PAYLOAD_BYTES = 16;
 
     private function __construct(private string $value)
     {
