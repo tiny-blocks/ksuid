@@ -19,7 +19,7 @@ final readonly class Ksuid
 
     public static function random(): Ksuid
     {
-        return new Ksuid(payload: Payload::random(), timestamp: Timestamp::fromAdjustedCurrentTime());
+        return new Ksuid(payload: Payload::random(), timestamp: Timestamp::fromCurrentTime());
     }
 
     public static function from(string $payload, int $timestamp): Ksuid
