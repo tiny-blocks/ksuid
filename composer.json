@@ -55,13 +55,13 @@
         "ext-bcmath": "Enables the extension which is an interface to the GNU implementation as a Basic Calculator utility library."
     },
     "scripts": {
+        "test": "phpunit --configuration phpunit.xml tests",
         "phpcs": "phpcs --standard=PSR12 --extensions=php ./src",
         "phpmd": "phpmd ./src text phpmd.xml --suffixes php --ignore-violations-on-exit",
         "phpstan": "phpstan analyse -c phpstan.neon.dist --quiet --no-progress",
-        "test": "phpunit --log-junit=report/coverage/junit.xml --coverage-xml=report/coverage/coverage-xml --coverage-html=report/coverage/coverage-html tests",
-        "test-mutation": "infection --only-covered --logger-html=report/coverage/mutation-report.html --coverage=report/coverage --min-msi=100 --min-covered-msi=100 --threads=4",
-        "test-no-coverage": "phpunit --no-coverage",
-        "test-mutation-no-coverage": "infection --only-covered --min-msi=100 --threads=4",
+        "test-file": "phpunit --configuration phpunit.xml --no-coverage --filter",
+        "mutation-test": "infection --only-covered --threads=max --logger-html=report/coverage/mutation-report.html --coverage=report/coverage",
+        "test-no-coverage": "phpunit --configuration phpunit.xml --no-coverage tests",
         "review": [
             "@phpcs",
             "@phpmd",
@@ -69,11 +69,10 @@
         ],
         "tests": [
             "@test",
-            "@test-mutation"
+            "@mutation-test"
         ],
         "tests-no-coverage": [
-            "@test-no-coverage",
-            "@test-mutation-no-coverage"
+            "@test-no-coverage"
         ]
     }
 }
