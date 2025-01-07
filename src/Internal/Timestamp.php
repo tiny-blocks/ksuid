@@ -32,9 +32,9 @@ final readonly class Timestamp
         return new Timestamp(value: $timestamp['uint']);
     }
 
-    public static function fromAdjustedCurrentTime(): Timestamp
+    public static function fromCurrentTime(): Timestamp
     {
-        return new Timestamp(value: time() - self::EPOCH);
+        return new Timestamp(value: time());
     }
 
     public function getValue(): int
