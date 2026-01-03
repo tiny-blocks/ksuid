@@ -1,7 +1,7 @@
 .idea
+
 vendor
 report
-.phpunit.cache
+.phpunit.*
 
-composer.lock
-.phpunit.result.cache
+*.lock
