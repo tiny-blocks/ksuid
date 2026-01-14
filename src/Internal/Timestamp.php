@@ -10,7 +10,7 @@ use TinyBlocks\Encoder\Base62;
 
 final readonly class Timestamp
 {
-    public const int EPOCH = 1400000000;
+    public const int EPOCH = 1_400_000_000;
 
     private function __construct(private int $value)
     {
@@ -51,7 +51,7 @@ final readonly class Timestamp
     {
         $timezone = new DateTimeZone(timezone: date_default_timezone_get());
 
-        return (new DateTime())
+        return new DateTime()
             ->setTimezone(timezone: $timezone)
             ->setTimestamp(timestamp: $this->getUnixTime())
             ->format(format: 'Y-m-d H:i:s O T');

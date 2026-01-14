@@ -2,6 +2,6 @@
 
 vendor
 report
-.phpunit.*
 
 *.lock
+.phpunit.*
