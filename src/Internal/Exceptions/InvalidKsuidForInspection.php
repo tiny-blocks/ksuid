@@ -8,10 +8,10 @@ use RuntimeException;
 
 final class InvalidKsuidForInspection extends RuntimeException
 {
-    public function __construct(private readonly string $ksuid)
+    public function __construct(string $ksuid)
     {
         $template = 'The KSUID <%s> is not valid for inspection.';
 
-        parent::__construct(message: sprintf($template, $this->ksuid));
+        parent::__construct(message: sprintf($template, $ksuid));
     }
 }
