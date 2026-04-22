@@ -17,13 +17,14 @@ YELLOW := \033[0;33m
 .PHONY: configure
 configure: ## Configure development environment
 	@${DOCKER_RUN} composer update --optimize-autoloader
+	@${DOCKER_RUN} composer normalize
 
 .PHONY: test
 test: ## Run all tests with coverage
 	@${DOCKER_RUN} composer tests
 
 .PHONY: test-file
-test-file: ## Run tests for a specific file (usage: make test-file FILE=path/to/file)
+test-file: ## Run tests for a specific file (usage: make test-file FILE=ClassNameTest)
 	@${DOCKER_RUN} composer test-file ${FILE}
 
 .PHONY: test-no-coverage
@@ -37,6 +38,10 @@ review: ## Run static code analysis
 .PHONY: show-reports
 show-reports: ## Open static analysis reports (e.g., coverage, lints) in the browser
 	@sensible-browser report/coverage/coverage-html/index.html report/coverage/mutation-report.html
+
+.PHONY: show-outdated
+show-outdated: ## Show outdated direct dependencies
+	@${DOCKER_RUN} composer outdated --direct
 
 .PHONY: clean
 clean: ## Remove dependencies and generated artifacts
@@ -60,7 +65,7 @@ help:  ## Display this help message
 		| awk 'BEGIN {FS = ":.*?## "}; {printf "$(YELLOW)%-25s$(RESET) %s\n", $$1, $$2}'
 	@echo ""
 	@echo "$$(printf '$(GREEN)')Reports$$(printf '$(RESET)')"
-	@grep -E '^(show-reports):.*?## .*$$' $(MAKEFILE_LIST) \
+	@grep -E '^(show-reports|show-outdated):.*?## .*$$' $(MAKEFILE_LIST) \
 		| awk 'BEGIN {FS = ":.*?## "}; {printf "$(YELLOW)%-25s$(RESET) %s\n", $$1, $$2}'
 	@echo ""
 	@echo "$$(printf '$(GREEN)')Cleanup$$(printf '$(RESET)')"

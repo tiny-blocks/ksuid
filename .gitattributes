@@ -1,13 +1,30 @@
-/tests export-ignore
-/vendor export-ignore
+# Auto detect text files and perform LF normalization
+* text=auto eol=lf
 
-/LICENSE export-ignore
-/Makefile export-ignore
-/README.md export-ignore
-/phpunit.xml export-ignore
-/phpstan.neon.dist export-ignore
+# ─── Diff drivers ────────────────────────────────────────────
+*.php           diff=php
+*.md            diff=markdown
+
+# ─── Force LF ────────────────────────────────────────────────
+*.sh            text eol=lf
+Makefile        text eol=lf
+
+# ─── Generated (skip diff and GitHub stats) ──────────────────
+composer.lock   -diff linguist-generated
+
+# ─── Export ignore (excluded from dist archive) ──────────────
+/tests              export-ignore
+/vendor             export-ignore
+/rules              export-ignore
+
+/.github            export-ignore
+/.gitignore         export-ignore
+/.gitattributes     export-ignore
+
+/CLAUDE.md          export-ignore
+/LICENSE            export-ignore
+/Makefile           export-ignore
+/README.md          export-ignore
+/phpunit.xml        export-ignore
+/phpstan.neon.dist  export-ignore
 /infection.json.dist export-ignore
-
-/.github export-ignore
-/.gitignore export-ignore
-/.gitattributes export-ignore

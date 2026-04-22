@@ -17,7 +17,7 @@
     },
     "mutators": {
         "@default": true,
-        "CastArray": false
+        "ProtectedVisibility": false
     },
     "minCoveredMsi": 100,
     "testFramework": "phpunit"
