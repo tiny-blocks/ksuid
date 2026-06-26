@@ -27,9 +27,9 @@ final readonly class Timestamp
         $bytes = $decoder->decode();
         $timestamp = substr($bytes, 0, -16);
         $timestamp = substr($timestamp, -4);
-        $timestamp = (array)unpack('Nuint', $timestamp);
+        $unpacked = unpack('Nuint', $timestamp);
 
-        return new Timestamp(value: $timestamp['uint']);
+        return new Timestamp(value: $unpacked['uint']);
     }
 
     public static function fromCurrentTime(): Timestamp

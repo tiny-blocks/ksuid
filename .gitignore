@@ -1,7 +1,28 @@
-.idea
+# PHP dependencies
+/vendor/
+composer.lock
 
-vendor
-report
+# Local config overrides (committed baselines are the .dist files)
+/phpstan.neon
+/infection.json
 
-*.lock
-.phpunit.*
+# Tooling cache
+.phpunit.cache/
+.phpunit.result.cache
+
+# Coverage and reports
+build/
+reports/
+coverage/
+infection.log
+
+# Editors and agents
+.idea/
+.cursor/
+.vscode/
+/.claude/settings.local.json
+
+# OS
+Thumbs.db
+.DS_Store
+Desktop.ini

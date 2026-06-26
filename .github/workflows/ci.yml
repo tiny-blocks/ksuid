@@ -3,26 +3,44 @@ name: CI
 on:
   pull_request:
 
+concurrency:
+  group: ci-${{ github.event.pull_request.number }}
+  cancel-in-progress: true
+
 permissions:
   contents: read
 
-env:
-  PHP_VERSION: '8.5'
-
 jobs:
-  build:
-    name: Build
+  resolve-php-version:
+    name: Resolve PHP version
     runs-on: ubuntu-latest
-
+    timeout-minutes: 5
+    outputs:
+      php-version: ${{ steps.config.outputs.php-version }}
     steps:
       - name: Checkout
         uses: actions/checkout@v7
 
-      - name: Configure PHP
+      - name: Resolve PHP version from composer.json
+        id: config
+        run: |
+          version=$(jq -r '.require.php' composer.json | grep -oP '\d+\.\d+' | head -1)
+          echo "php-version=$version" >> "$GITHUB_OUTPUT"
+
+  build:
+    name: Build
+    needs: resolve-php-version
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v7
+
+      - name: Setup PHP
         uses: shivammathur/setup-php@v2
         with:
-          php-version: ${{ env.PHP_VERSION }}
           tools: composer:2
+          php-version: ${{ needs.resolve-php-version.outputs.php-version }}
 
       - name: Validate composer.json
         run: composer validate --no-interaction
@@ -40,18 +58,18 @@ jobs:
 
   auto-review:
     name: Auto review
+    needs: [resolve-php-version, build]
     runs-on: ubuntu-latest
-    needs: build
-
+    timeout-minutes: 15
     steps:
       - name: Checkout
         uses: actions/checkout@v7
 
-      - name: Configure PHP
+      - name: Setup PHP
         uses: shivammathur/setup-php@v2
         with:
-          php-version: ${{ env.PHP_VERSION }}
           tools: composer:2
+          php-version: ${{ needs.resolve-php-version.outputs.php-version }}
 
       - name: Download vendor artifact from build
         uses: actions/download-artifact@v8
@@ -64,18 +82,18 @@ jobs:
 
   tests:
     name: Tests
+    needs: [resolve-php-version, auto-review]
     runs-on: ubuntu-latest
-    needs: auto-review
-
+    timeout-minutes: 15
     steps:
       - name: Checkout
         uses: actions/checkout@v7
 
-      - name: Configure PHP
+      - name: Setup PHP
         uses: shivammathur/setup-php@v2
         with:
-          php-version: ${{ env.PHP_VERSION }}
           tools: composer:2
+          php-version: ${{ needs.resolve-php-version.outputs.php-version }}
 
       - name: Download vendor artifact from build
         uses: actions/download-artifact@v8

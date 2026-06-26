@@ -2,10 +2,13 @@
 
 declare(strict_types=1);
 
-namespace TinyBlocks\Ksuid\Internal\Exceptions;
+namespace TinyBlocks\Ksuid\Exceptions;
 
 use RuntimeException;
 
+/**
+ * Raised when a payload does not have the exact required size.
+ */
 final class InvalidPayloadSize extends RuntimeException
 {
     public function __construct(int $currentSize, int $payloadBytes)

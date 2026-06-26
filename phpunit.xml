@@ -1,13 +1,16 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <phpunit xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
          xsi:noNamespaceSchemaLocation="./vendor/phpunit/phpunit/phpunit.xsd"
-         colors="true"
+         beStrictAboutOutputDuringTests="true"
          bootstrap="vendor/autoload.php"
-         failOnRisky="true"
-         failOnWarning="true"
          cacheDirectory=".phpunit.cache"
+         colors="true"
          executionOrder="random"
-         beStrictAboutOutputDuringTests="true">
+         failOnDeprecation="true"
+         failOnNotice="true"
+         failOnPhpunitDeprecation="true"
+         failOnRisky="true"
+         failOnWarning="true">
 
     <source>
         <include>
@@ -23,15 +26,15 @@
 
     <coverage>
         <report>
-            <xml outputDirectory="report/coverage/coverage-xml"/>
-            <html outputDirectory="report/coverage/coverage-html"/>
-            <text outputFile="report/coverage.txt"/>
-            <clover outputFile="report/coverage-clover.xml"/>
+            <xml outputDirectory="reports/coverage/coverage-xml"/>
+            <html outputDirectory="reports/coverage/coverage-html"/>
+            <text outputFile="reports/coverage.txt"/>
+            <clover outputFile="reports/coverage-clover.xml"/>
         </report>
     </coverage>
 
     <logging>
-        <junit outputFile="report/coverage/junit.xml"/>
+        <junit outputFile="reports/coverage/junit.xml"/>
     </logging>
 
 </phpunit>
