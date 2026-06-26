@@ -1,13 +1,12 @@
 {
-    "name": "tiny-blocks/ksuid",
-    "description": "K-Sortable Unique Identifier.",
+    "name": "tiny-blocks/<lib-name>",
+    "description": "<one short sentence describing what the library does>",
     "license": "MIT",
     "type": "library",
     "keywords": [
-        "ksuid",
-        "k-sortable",
         "tiny-blocks",
-        "unique-identifier"
+        "<topic-1>",
+        "<topic-2>"
     ],
     "authors": [
         {
@@ -15,19 +14,18 @@
             "homepage": "https://github.com/gustavofreze"
         }
     ],
-    "homepage": "https://github.com/tiny-blocks/ksuid",
+    "homepage": "https://github.com/tiny-blocks/<lib-name>",
     "support": {
-        "issues": "https://github.com/tiny-blocks/ksuid/issues",
-        "source": "https://github.com/tiny-blocks/ksuid"
+        "issues": "https://github.com/tiny-blocks/<lib-name>/issues",
+        "source": "https://github.com/tiny-blocks/<lib-name>"
     },
     "require": {
-        "php": "^8.5",
-        "tiny-blocks/encoder": "^4.0"
+        "php": "^8.5"
     },
     "require-dev": {
-        "ergebnis/composer-normalize": "^2.51",
-        "infection/infection": "^0.32",
-        "phpstan/phpstan": "^2.1",
+        "ergebnis/composer-normalize": "^2.52",
+        "infection/infection": "^0.33",
+        "phpstan/phpstan": "^2.2",
         "phpunit/phpunit": "^13.1",
         "squizlabs/php_codesniffer": "^4.0"
     },
@@ -35,12 +33,12 @@
     "prefer-stable": true,
     "autoload": {
         "psr-4": {
-            "TinyBlocks\\Ksuid\\": "src/"
+            "TinyBlocks\\<LibName>\\": "src/"
         }
     },
     "autoload-dev": {
         "psr-4": {
-            "Test\\TinyBlocks\\Ksuid\\": "tests/"
+            "Test\\TinyBlocks\\<LibName>\\": "tests/"
         }
     },
     "config": {

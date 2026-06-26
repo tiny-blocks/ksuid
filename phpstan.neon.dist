@@ -1,8 +1,15 @@
 parameters:
-  paths:
-    - src
-  level: 9
-  tmpDir: report/phpstan
-  ignoreErrors:
-    - '#return type has no value type specified in iterable type array#'
-  reportUnmatchedIgnoredErrors: false
+    level: max
+    paths:
+        - src
+        - tests
+    reportUnmatchedIgnoredErrors: true
+    ignoreErrors:
+        # unpack() is typed as array|false with mixed values; the 'N' format guarantees an integer at the offset.
+        - identifier: offsetAccess.nonOffsetAccessible
+          path: src/Internal/Timestamp.php
+        - identifier: argument.type
+          path: src/Internal/Timestamp.php
+        # Data providers and array-shaped test inputs carry no value type. Tests route through ignoreErrors, not PHPDoc.
+        - identifier: missingType.iterableValue
+          path: tests/KsuidTest.php

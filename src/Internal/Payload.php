@@ -5,7 +5,7 @@ declare(strict_types=1);
 namespace TinyBlocks\Ksuid\Internal;
 
 use TinyBlocks\Encoder\Base62;
-use TinyBlocks\Ksuid\Internal\Exceptions\InvalidPayloadSize;
+use TinyBlocks\Ksuid\Exceptions\InvalidPayloadSize;
 
 final readonly class Payload
 {
@@ -20,14 +20,14 @@ final readonly class Payload
         }
     }
 
-    public static function random(): Payload
-    {
-        return new Payload(value: random_bytes(self::PAYLOAD_BYTES));
-    }
-
     public static function from(string $value): Payload
     {
         return new Payload(value: $value);
+    }
+
+    public static function random(): Payload
+    {
+        return new Payload(value: random_bytes(self::PAYLOAD_BYTES));
     }
 
     public static function fromBytes(string $value): Payload

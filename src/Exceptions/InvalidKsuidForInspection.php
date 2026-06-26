@@ -2,10 +2,13 @@
 
 declare(strict_types=1);
 
-namespace TinyBlocks\Ksuid\Internal\Exceptions;
+namespace TinyBlocks\Ksuid\Exceptions;
 
 use RuntimeException;
 
+/**
+ * Raised when a value cannot be inspected as a Ksuid.
+ */
 final class InvalidKsuidForInspection extends RuntimeException
 {
     public function __construct(string $ksuid)

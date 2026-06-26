@@ -1,6 +1,6 @@
 # Ksuid
 
-[![License](https://img.shields.io/badge/license-MIT-green)](LICENSE)
+[![License](https://img.shields.io/badge/license-MIT-green)](https://github.com/tiny-blocks/ksuid/blob/main/LICENSE)
 
 * [Overview](#overview)
 * [Installation](#installation)
@@ -8,22 +8,16 @@
 * [License](#license)
 * [Contributing](#contributing)
 
-<div id='overview'></div> 
-
 ## Overview
 
 Ksuid stands for [K-Sortable Unique Identifier](https://segment.com/blog/a-brief-history-of-the-uuid). It's a way to
 generate globally unique IDs which are partially chronologically sortable.
-
-<div id='installation'></div>
 
 ## Installation
 
 ```bash
 composer require tiny-blocks/ksuid
 ```
-
-<div id='how-to-use'></div>
 
 ## How to use
 
@@ -35,18 +29,23 @@ With the `random` method, a new instance of type `Ksuid` is created from a times
 and a payload (_cryptographically secure pseudo-random bytes_).
 
 ```php
+<?php
+
+declare(strict_types=1);
+
+use TinyBlocks\Ksuid\Ksuid;
+
 $ksuid = Ksuid::random();
 
-$ksuid->getValue();     # 2QzPUGEaAKHhVcQYrqQodbiZat1
-$ksuid->getPayload();   # 464932c1194da98e752145d72b8f0aab
-$ksuid->getUnixTime();  # 1686353450
-$ksuid->getTimestamp(); # 286353450
+$ksuid->value();     # 2QzPUGEaAKHhVcQYrqQodbiZat1
+$ksuid->payload();   # 464932c1194da98e752145d72b8f0aab
+$ksuid->unixTime();  # 1686353450
+$ksuid->timestamp(); # 286353450
 ```
 
 You can also choose from other factory models.
 
 ```php
-
 Ksuid::from(payload: hex2bin('9850EEEC191BF4FF26F99315CE43B0C8'), timestamp: 286235327);
 
 Ksuid::fromPayload(value: '0o5Fs0EELR0fUjHjbCnEtdUwQe3');
@@ -72,13 +71,9 @@ This will output the following array:
 ]
 ```
 
-<div id='license'></div>
-
 ## License
 
 Ksuid is licensed under [MIT](LICENSE).
-
-<div id='contributing'></div>
 
 ## Contributing
 
