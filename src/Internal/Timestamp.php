@@ -44,7 +44,7 @@ final readonly class Timestamp
 
     public function getUnixTime(): int
     {
-        return $this->value + self::EPOCH;
+        return ($this->value + self::EPOCH);
     }
 
     public function toUnixTimeFormatted(): string
