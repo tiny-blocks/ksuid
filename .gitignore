@@ -9,6 +9,8 @@ composer.lock
 # Tooling cache
 .phpunit.cache/
 .phpunit.result.cache
+__pycache__/
+*.pyc
 
 # Coverage and reports
 build/
@@ -26,7 +28,3 @@ infection.log
 Thumbs.db
 .DS_Store
 Desktop.ini
-
-# Cache from .claude Python hooks
-__pycache__/
-*.pyc
