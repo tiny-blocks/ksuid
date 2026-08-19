@@ -3,7 +3,7 @@ parameters:
     paths:
         - src
         - tests
-    reportUnmatchedIgnoredErrors: true
+    tmpDir: reports/phpstan
     ignoreErrors:
         # unpack() is typed as array|false with mixed values; the 'N' format guarantees an integer at the offset.
         - identifier: offsetAccess.nonOffsetAccessible
@@ -13,3 +13,4 @@ parameters:
         # Data providers and array-shaped test inputs carry no value type. Tests route through ignoreErrors, not PHPDoc.
         - identifier: missingType.iterableValue
           path: tests/KsuidTest.php
+    reportUnmatchedIgnoredErrors: true
