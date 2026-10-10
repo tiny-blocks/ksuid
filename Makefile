@@ -10,7 +10,7 @@ TTY := $(shell [ -t 0 ] && echo -it)
 HOST_USER := $(shell id -u):$(shell id -g)
 
 PHP_VERSION := $(shell sed -n 's/.*"php": *"^\([0-9]*\.[0-9]*\)".*/\1/p' composer.json)
-IMAGE_VERSION := 1.0.0
+IMAGE_VERSION := 1.0.4
 PHP_IMAGE := gustavofreze/php:${PHP_VERSION}-cli-${IMAGE_VERSION}
 WORKSPACE := /var/www/html
 
