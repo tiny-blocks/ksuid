@@ -1,6 +1,6 @@
 {
     "name": "tiny-blocks/ksuid",
-    "description": "K-Sortable Unique Identifier.",
+    "description": "Generates and inspects K-Sortable Unique Identifiers for PHP, globally unique and ordered by creation time.",
     "license": "MIT",
     "type": "library",
     "keywords": [
