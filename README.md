@@ -10,8 +10,8 @@
 
 ## Overview
 
-Ksuid stands for [K-Sortable Unique Identifier](https://segment.com/blog/a-brief-history-of-the-uuid). It's a way to
-generate globally unique IDs which are partially chronologically sortable.
+Ksuid stands for [K-Sortable Unique Identifier](https://www.twilio.com/en-us/blog/developers/a-brief-history-of-the-uuid).
+It's a way to generate globally unique IDs which are partially chronologically sortable.
 
 ## Installation
 
